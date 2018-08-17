@@ -6,13 +6,13 @@ import com.savitoh.domain.Cargo;
 
 public interface CargoDao {
 
-	public void save(Cargo departamento);
+	public void save(Cargo cargo);
 	
-	public void update(Cargo departamento);
+	public void update(Cargo cargo);
 	
 	public void delete(Long id);
 	
-	Cargo findById(Long id);
+	public Cargo findById(Long id);
 	
-	List<Cargo> findAll();
+	public List<Cargo> findAll();
 }
