@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns="https://www.thymeleaf.org/"
-													 xmlns="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<title>Spring-Boot Básico</title>
+	<title>Spring-Boot Básico</title>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -18,26 +19,25 @@
 	<link href="/css/style.css" rel="stylesheet" />
 </head>
 <body>
-	<header th:replace="fragements/header :: cebecalho">
-		<div>Header</div>
+	<header th:replace="fragments/header :: cabecalho">
+		<div>header</div>
 	</header>
 	
-	<div class="layout-main">
+	<div  class="layout-main">
 		<aside>
-			<nav th:replace= "fragements/sidebar :: nav-sidebar">
-				<span>Menu</span>
+			<nav th:replace="fragments/sidebar :: nav-sidebar">
+				<span>menu</span>
 			</nav>
 		</aside>
 		
 		<section layout:fragment="corpo">
-			<div>Conteudo Principal da Página</div>
+			<div>conteudo principal das páginas</div>
 		</section>
 	</div>
 	
-	<footer th:replace="fragements/footer :: rodape">
+	<footer th:replace="fragments/footer :: rodape">
 		<div>footer</div>
 	</footer>
-	
 	
 	<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -57,7 +57,7 @@
 		        $(".sidebar").toggleClass("sidebar-open");
 		    })
 		});
+
 	</script>
-	
 </body>
 </html>
