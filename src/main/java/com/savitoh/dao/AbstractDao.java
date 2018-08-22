@@ -30,7 +30,7 @@ public abstract class AbstractDao<T, PK extends Serializable>{
 	}
 	
 	public void delete(PK id) {
-		entityManager.remove(id);
+		entityManager.remove(entityManager.getReference(entityClass, id));
 	}
 	
 	public T findById(PK id) {
