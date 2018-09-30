@@ -30,6 +30,7 @@ public class CargoController {
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
+		model.addAttribute("cargos", cargoService.buscarTodos());
 		return "/cargo/lista";
 	}
 
@@ -38,6 +39,31 @@ public class CargoController {
 		cargoService.salvar(cargo);
 		attr.addFlashAttribute("success", "Cargo inserido com sucesso.");
 		return "redirect:/cargos/cadastrar";
+	}
+	
+	@GetMapping("/editar/{id}")
+	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+		model.addAttribute("cargo", cargoService.buscarPorId(id));
+		return "/cargo/cadastro";
+	}
+	
+	@PostMapping("/editar")
+	public String editar(Cargo cargo, RedirectAttributes attr) {
+		cargoService.editar(cargo);
+		attr.addFlashAttribute("success", "Registro atualizado com sucesso");
+		return "redirect:/cargos/cadastrar";
+	}
+	
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+		if(cargoService.cargoTemFuncionario(id)) {
+			attr.addFlashAttribute("fail", "Cargo não excluido. Tem funcionários(s) vinculado(s)");
+		}
+		else {
+			cargoService.excluir(id);
+			attr.addFlashAttribute("success", "Cargo excluido com sucesso");
+		}
+		return "redirect:/cargos/listar";
 	}
 
 	@ModelAttribute("departamentos")

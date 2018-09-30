@@ -23,7 +23,7 @@
 
 		<div th:replace="fragments/alert"></div>
 
-		<form th:action="@{/cargos/salvar}"
+		<form th:action="${cargo.id == null}  ? @{/cargos/salvar} : @{/cargos/editar}"
 			  th:object="${cargo}" method="POST">
 			<div class="form-row">
 				<div class="form-group col-md-6">
@@ -40,6 +40,7 @@
 					</select>
 				</div>
 			</div>
+			<input type="hidden" id="id" th:field="*{id}"/> 
 			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
 		</form>
 	</div>
