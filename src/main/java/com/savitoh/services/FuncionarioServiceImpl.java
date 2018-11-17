@@ -2,6 +2,7 @@ package com.savitoh.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import com.savitoh.domain.Funcionario;
 @Transactional(readOnly = false)
 public class FuncionarioServiceImpl implements FuncionarioService {
 
+	@Autowired
 	private FuncionarioDao funcionarioDao;
 	
 	@Override
