@@ -192,3 +192,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # End of https://www.gitignore.io/api/java,linux,maven,eclipse,java-web
+.vscode/launch.json
