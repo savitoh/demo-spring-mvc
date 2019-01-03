@@ -44,21 +44,21 @@ public class FuncionarioController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Funcionario funcionario) {
-		return "/funcionario/cadastro";
+		return "funcionario/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		List<Funcionario> funcionarios = funcionarioService.buscarTodos(); 
 		model.addAttribute("funcionarios", funcionarios);
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
 
 	@PostMapping("/salvar")
 	public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr){
 
 		if(result.hasErrors()) {
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
 
 		funcionarioService.salvar(funcionario);
@@ -76,7 +76,7 @@ public class FuncionarioController {
 	public String editar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr){
 
 		if(result.hasErrors()) {
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
 		
 		funcionarioService.editar(funcionario);
@@ -94,13 +94,13 @@ public class FuncionarioController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model){
 		model.addAttribute("funcionarios", funcionarioService.buscaPorNome(nome));
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
 
 	@GetMapping("/buscar/cargo")
 	public String getPorCargo(@RequestParam("id") String id, ModelMap model){
 		model.addAttribute("funcionarios", funcionarioService.buscaPorCargo(id));
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
 
 	@GetMapping("/buscar/data")
@@ -109,7 +109,7 @@ public class FuncionarioController {
 							 ModelMap model){
 
 		model.addAttribute("funcionarios", funcionarioService.buscaPorDatas(entrada, saida));
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
 
 	@ModelAttribute("cargos")
