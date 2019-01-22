@@ -17,9 +17,9 @@ public class FuncionarioValidator implements Validator {
     @Override
     public void validate(Object object, Errors errors) {
         
-        Funcionario f = (Funcionario) object;
+        var f = (Funcionario) object;
 
-        LocalDate entrada = f.getDataEntrada();
+        var entrada = f.getDataEntrada();
 
         if(f.getDataSaida() != null) {
             if(f.getDataSaida().isBefore(entrada)) {

@@ -49,7 +49,7 @@ public class FuncionarioController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		List<Funcionario> funcionarios = funcionarioService.buscarTodos(); 
+		var funcionarios = funcionarioService.buscarTodos();
 		model.addAttribute("funcionarios", funcionarios);
 		return "funcionario/lista";
 	}
