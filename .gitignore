@@ -193,3 +193,8 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/java,linux,maven,eclipse,java-web
 .vscode/launch.json
+.idea/vcs.xml
+.idea/misc.xml
+.idea/encodings.xml
+.idea/compiler.xml
+.idea/.name
