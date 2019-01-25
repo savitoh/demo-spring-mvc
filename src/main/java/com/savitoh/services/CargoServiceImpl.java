@@ -2,6 +2,7 @@ package com.savitoh.services;
 
 import java.util.List;
 
+import com.savitoh.repository.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,42 +17,45 @@ public class CargoServiceImpl implements CargoService {
 	@Autowired
 	private CargoDao cargoDao;
 
+	@Autowired
+	private CargoRepository cargoRepository;
+
 	@Override
 	public void salvar(Cargo cargo) {
 		// TODO Auto-generated method stub
-		cargoDao.save(cargo);
+		cargoRepository.save(cargo);
 	}
 
 	@Override
 	public void editar(Cargo cargo) {
 		// TODO Auto-generated method stub
-		cargoDao.update(cargo);	
+		cargoRepository.save(cargo);
 	}
 
 	@Override
 	public void excluir(Long id) {
 		// TODO Auto-generated method stub
-		cargoDao.delete(id);
+		cargoRepository.delete(this.buscarPorId(id));
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public Cargo buscarPorId(Long id) {
 		// TODO Auto-generated method stub
-		return cargoDao.findById(id);
+		return cargoRepository.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public List<Cargo> buscarTodos() {
 		// TODO Auto-generated method stub
-		return cargoDao.findAll();
+		return cargoRepository.findAll();
 	}
 
 	@Override
 	public boolean cargoTemFuncionario(Long id) {
 		// TODO Auto-generated method stub
-		if(buscarPorId(id).getFuncionarios().isEmpty()) {
+		if(this.buscarPorId(id).getFuncionarios().isEmpty()) {
 			return false;
 		}
 		return true;
