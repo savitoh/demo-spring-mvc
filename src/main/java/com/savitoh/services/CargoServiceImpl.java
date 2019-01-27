@@ -7,15 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.savitoh.dao.CargoDao;
 import com.savitoh.domain.Cargo;
 
 @Service
 @Transactional(readOnly = false)
 public class CargoServiceImpl implements CargoService {
-	
-	@Autowired
-	private CargoDao cargoDao;
 
 	@Autowired
 	private CargoRepository cargoRepository;
@@ -42,7 +38,7 @@ public class CargoServiceImpl implements CargoService {
 	@Transactional(readOnly = false)
 	public Cargo buscarPorId(Long id) {
 		// TODO Auto-generated method stub
-		return cargoRepository.findById(id);
+		return cargoRepository.findById(id).get();
 	}
 
 	@Override

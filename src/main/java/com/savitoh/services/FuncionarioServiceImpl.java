@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.savitoh.repository.CargoRepository;
+import com.savitoh.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.savitoh.dao.FuncionarioDao;
 import com.savitoh.domain.Funcionario;
 
 
@@ -17,61 +18,64 @@ import com.savitoh.domain.Funcionario;
 public class FuncionarioServiceImpl implements FuncionarioService {
 
 	@Autowired
-	private FuncionarioDao funcionarioDao;
+	private FuncionarioRepository funcionarioRepository;
+
+	@Autowired
+	private CargoRepository cargoRepository;
 	
 	@Override
 	public void salvar(Funcionario funcionario) {
 		// TODO Auto-generated method stub
-		funcionarioDao.save(funcionario);
+		funcionarioRepository.save(funcionario);
 	}
 
 	@Override
 	public void editar(Funcionario funcionario) {
 		// TODO Auto-generated method stub
-		funcionarioDao.update(funcionario);
+		funcionarioRepository.save(funcionario);
 	}
 
 	@Override
 	public void excluir(Long id) {
 		// TODO Auto-generated method stub
-		funcionarioDao.delete(id);
+		funcionarioRepository.delete(this.buscarPorId(id));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Funcionario buscarPorId(Long id) {
 		// TODO Auto-generated method stub
-		return funcionarioDao.findById(id);
+		return funcionarioRepository.findById(id).get();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Funcionario> buscarTodos() {
 		// TODO Auto-generated method stub
-		return funcionarioDao.findAll();
+		return funcionarioRepository.findAll();
 	}
 
 	@Override
 	public List<Funcionario> buscaPorNome(String nome) {
-		return funcionarioDao.findByNome(nome);
+		return funcionarioRepository.findByNomeContainingIgnoreCase(nome);
 	}
 
 	@Override
 	public List<Funcionario> buscaPorCargo(String id) {
-		return funcionarioDao.findByCargo(Long.valueOf(id));
+		var cargo = cargoRepository.findById(Long.valueOf(id)).get();
+		return funcionarioRepository.findByCargo(cargo);
 	}
 
 	@Override
 	public List<Funcionario> buscaPorDatas(LocalDate entrada, LocalDate saida) {
 		if(entrada != null && saida != null){
-			return funcionarioDao.findByDataEntradaDataSaida(entrada, saida);
+			return funcionarioRepository.findByDataEntradaGreaterThanEqualOrDataSaidaLessThanEqualOrderByDataEntrada(entrada, saida);
 		} else if(entrada != null) {
-			return funcionarioDao.findByDataEntrada(entrada);
+			return funcionarioRepository.findByDataEntradaGreaterThanEqualOrderByDataEntrada(entrada);
 		} else if(saida != null) {
-			return funcionarioDao.findByDataSaida(saida);
-		} else {
-			return new ArrayList<>();
+			return funcionarioRepository.findByDataSaidaLessThanEqualOrderByDataEntrada(saida);
 		}
+		return new ArrayList<>();
 	}
 
 }
