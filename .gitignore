@@ -198,3 +198,5 @@ fabric.properties
 .idea/encodings.xml
 .idea/compiler.xml
 .idea/.name
+.idea/demo-spring-mvc.iml
+.idea/codeStyles/Project.xml
